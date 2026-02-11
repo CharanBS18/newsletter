@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSE(AI&ML) Department Newsletter</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f4f6f8;
+  }
+
+  /* ---------- INTRO PAGE ---------- */
+  #intro {
+    position: fixed;
+    inset: 0;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  /* Animated gradient background */
+  #intro::before,
+  #intro::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      #667eea,
+      #764ba2,
+      #f093fb,
+      #f5576c,
+      #4facfe,
+      #00f2fe,
+      #667eea
+    );
+    transform: translate(-50%, -50%);
+    animation: rotate 10s linear infinite;
+    filter: blur(80px);
+    opacity: 0.6;
+    z-index: -1;
+  }
+
+  #intro::after {
+    width: 180%;
+    height: 180%;
+    animation: rotate-reverse 15s linear infinite;
+    opacity: 0.4;
+  }
+
+  @keyframes rotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  @keyframes rotate-reverse {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(-360deg); }
+  }
+
+  /* Loader container */
+  .intro-loader {
+    position: relative;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  .intro-loader svg {
+    width: 100px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  }
+
+  /* Intro text styles */
+  .intro-content {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+
+  .intro-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    line-height: 1.2;
+  }
+
+  .intro-content .subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+    margin: 10px 0;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 1s;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .intro-content .issue-info {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin: 8px 0;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 1.5s;
+    font-weight: 400;
+  }
+
+  .intro-content .issue-info span {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(5px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Loading progress indicator */
+  .loading-progress {
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 2s;
+  }
+
+  .loading-bar {
+    width: 200px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+  }
+
+  .loading-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    border-radius: 10px;
+    animation: loadingFill 1.5s ease-in-out forwards;
+  }
+
+  @keyframes loadingFill {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  .loading-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Intro footer */
+  .intro-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 1;
+    animation: none;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Glow effect on text */
+  .glow-text {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    to {
+      text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.8),
+        0 0 40px rgba(102, 126, 234, 0.5),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  /* Exit animation for intro */
+  #intro.exit {
+    animation: exitAnimation 1s ease-in-out forwards;
+  }
+
+  @keyframes exitAnimation {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.9);
+      pointer-events: none;
+    }
+  }
+
+  /* Loader Animations */
+  .loader {
+    --dur: 2s;
+    display: block;
+    margin: auto;
+    width: 14em;
+    height: auto;
+  }
+
+  .loader__glare-top,
+  .loader__glare-bottom,
+  .loader__model,
+  .loader__motion-thick,
+  .loader__motion-medium,
+  .loader__motion-thin,
+  .loader__sand-drop,
+  .loader__sand-fill,
+  .loader__sand-grain-left,
+  .loader__sand-grain-right,
+  .loader__sand-line-left,
+  .loader__sand-line-right,
+  .loader__sand-mound-top,
+  .loader__sand-mound-bottom {
+    animation-duration: var(--dur);
+    animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+    animation-iteration-count: infinite;
+  }
+
+  .loader__glare-top {
+    animation-name: glare-top;
+  }
+
+  .loader__glare-bottom {
+    animation-name: glare-bottom;
+  }
+
+  .loader__model {
+    animation-name: loader-flip;
+    transform-origin: 12.25px 16.75px;
+  }
+
+  .loader__motion-thick,
+  .loader__motion-medium,
+  .loader__motion-thin {
+    transform-origin: 26px 26px;
+  }
+
+  .loader__motion-thick {
+    animation-name: motion-thick;
+  }
+
+  .loader__motion-medium {
+    animation-name: motion-medium;
+  }
+
+  .loader__motion-thin {
+    animation-name: motion-thin;
+  }
+
+  .loader__sand-drop {
+    animation-name: sand-drop;
+  }
+
+  .loader__sand-fill {
+    animation-name: sand-fill;
+  }
+
+  .loader__sand-grain-left {
+    animation-name: sand-grain-left;
+  }
+
+  .loader__sand-grain-right {
+    animation-name: sand-grain-right;
+  }
+
+  .loader__sand-line-left {
+    animation-name: sand-line-left;
+  }
+
+  .loader__sand-line-right {
+    animation-name: sand-line-right;
+  }
+
+  .loader__sand-mound-top {
+    animation-name: sand-mound-top;
+  }
+
+  .loader__sand-mound-bottom {
+    animation-name: sand-mound-bottom;
+    transform-origin: 12.25px 31.5px;
+  }
+
+  /* Loader Animation Keyframes */
+  @keyframes loader-flip {
+    from {
+      transform: translate(13.75px, 9.25px) rotate(-180deg);
+    }
+    24%,
+    to {
+      transform: translate(13.75px, 9.25px) rotate(0);
+    }
+  }
+
+  @keyframes glare-top {
+    from {
+      stroke: rgba(255, 255, 255, 0);
+    }
+    24%,
+    to {
+      stroke: white;
+    }
+  }
+
+  @keyframes glare-bottom {
+    from {
+      stroke: white;
+    }
+    24%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+    }
+  }
+
+  @keyframes motion-thick {
+    from {
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0);
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(0.67turn);
+    }
+    20% {
+      animation-timing-function: cubic-bezier(0.33, 1, 0.67, 1);
+      stroke: rgb(32, 32, 32);
+      stroke-dashoffset: 141.11;
+      transform: rotate(1turn);
+    }
+    40%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(1.33turn);
+    }
+  }
+
+  @keyframes motion-medium {
+    from,
+    8% {
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0);
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(0.5turn);
+    }
+    20% {
+      animation-timing-function: cubic-bezier(0.33, 1, 0.67, 1);
+      stroke: white;
+      stroke-dashoffset: 147.53;
+      transform: rotate(0.83turn);
+    }
+    32%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(1.17turn);
+    }
+  }
+
+  @keyframes motion-thin {
+    from,
+    4% {
+      animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0);
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(0.33turn);
+    }
+    24% {
+      animation-timing-function: cubic-bezier(0.33, 1, 0.67, 1);
+      stroke: rgb(53, 53, 53);
+      stroke-dashoffset: 134.7;
+      transform: rotate(0.67turn);
+    }
+    44%,
+    to {
+      stroke: rgba(255, 255, 255, 0);
+      stroke-dashoffset: 153.94;
+      transform: rotate(1turn);
+    }
+  }
+
+  @keyframes sand-drop {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 1;
+    }
+    70%,
+    to {
+      stroke-dashoffset: -107;
+    }
+  }
+
+  @keyframes sand-fill {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 55;
+    }
+    70%,
+    to {
+      stroke-dashoffset: -54;
+    }
+  }
+
+  @keyframes sand-grain-left {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 29;
+    }
+    70%,
+    to {
+      stroke-dashoffset: -22;
+    }
+  }
+
+  @keyframes sand-grain-right {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 27;
+    }
+    70%,
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+
+  @keyframes sand-line-left {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 53;
+    }
+    70%,
+    to {
+      stroke-dashoffset: -55;
+    }
+  }
+
+  @keyframes sand-line-right {
+    from,
+    10% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      stroke-dashoffset: 14;
+    }
+    70%,
+    to {
+      stroke-dashoffset: -24.5;
+    }
+  }
+
+  @keyframes sand-mound-top {
+    from,
+    10% {
+      animation-timing-function: linear;
+      transform: translate(0, 0);
+    }
+    15% {
+      animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+      transform: translate(0, 1.5px);
+    }
+    51%,
+    to {
+      transform: translate(0, 13px);
+    }
+  }
+
+  @keyframes sand-mound-bottom {
+    from,
+    31% {
+      animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
+      transform: scale(1, 0);
+    }
+    56%,
+    to {
+      transform: scale(1, 1);
+    }
+  }
+
+  /* ---------- MAIN PAGE ---------- */
+  #main {
+    display: none;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Animated gradient background */
+  #main::before,
+  #main::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      #667eea,
+      #764ba2,
+      #f093fb,
+      #f5576c,
+      #4facfe,
+      #00f2fe,
+      #667eea
+    );
+    transform: translate(-50%, -50%);
+    animation: rotate 8s linear infinite;
+    filter: blur(50px);
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+  /* Secondary rotating layer */
+  #main::after {
+    width: 180%;
+    height: 180%;
+    animation: rotate-reverse 10s linear infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes rotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  @keyframes rotate-reverse {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(-360deg); }
+  }
+
+  /* Content wrapper to keep content above background */
+  #main > *:not(script) {
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    background: #111827;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header .logo {
+    max-height: 60px;
+    margin-right: 20px;
+  }
+
+  header .title-container {
+    flex: 1;
+    text-align: center;
+  }
+
+  header h2 {
+    font-size: 16px;
+    font-weight: normal;
+    opacity: 0.9;
+  }
+
+  .section-title {
+    text-align: center;
+    margin: 30px 0 20px;
+    color: #1e3a8a;
+    font-size: 24px;
+  }
+
+  /* ---------- NAVIGATION ---------- */
+  .nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0 30px;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    padding: 12px 28px;
+    border: 2px solid #1e3a8a;
+    background: transparent;
+    color: #1e3a8a;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .nav-btn:hover {
+    background: #1e3a8a;
+    color: white;
+  }
+
+  .nav-btn.active {
+    background: #1e3a8a;
+    color: white;
+  }
+
+  /* ---------- CONTENT SECTIONS ---------- */
+  .content-section {
+    display: none;
+  }
+
+  .content-section.active {
+    display: block;
+  }
+
+  /* ---------- ACHIEVEMENTS LIST ---------- */
+  .achievements-list {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    margin: 5px 0;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .achievement-item .achievement-details .highlight {
+    color: #2d6a4f;
+    font-weight: 600;
+  }
+
+  /* ---------- FACULTY LIST ---------- */
+  .faculty-achievement-item {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid #1e3a8a;
+  }
+
+  .faculty-achievement-item h4 {
+    color: #1e3a8a;
+    margin: 0 0 8px;
+    font-size: 18px;
+  }
+
+  .faculty-achievement-item p {
+    margin: 5px 0;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .faculty-achievement-item .achievement-type {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #1e3a8a;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  /* ---------- 3D FACULTY CARDS ---------- */
+  .faculty-grid {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 40px;
+  }
+
+  .faculty-parent {
+    width: 100%;
+    perspective: 1000px;
+  }
+
+  .faculty-card {
+    padding-top: 50px;
+    border: 3px solid rgb(255, 255, 255);
+    transform-style: preserve-3d;
+    background: linear-gradient(135deg,#0000 18.75%,#f3f3f3 0 31.25%,#0000 0),
+        repeating-linear-gradient(45deg,#f3f3f3 -6.25% 6.25%,#ffffff 0 18.75%);
+    background-size: 60px 60px;
+    background-position: 0 0, 0 0;
+    background-color: #f0f0f0;
+    width: 100%;
+    box-shadow: rgba(142, 142, 142, 0.3) 0px 30px 30px -10px;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    min-height: 200px;
+  }
+
+  .faculty-card:hover {
+    background-position: -100px 100px, -100px 100px;
+    transform: rotate3d(0.5, 1, 0, 30deg);
+  }
+
+  .faculty-content-box {
+    background: rgba(4, 193, 250, 0.85);
+    transition: all 0.5s ease-in-out;
+    padding: 60px 25px 25px 25px;
+    transform-style: preserve-3d;
+  }
+
+  .faculty-card:hover .faculty-content-box {
+    background: rgba(4, 193, 250, 0.95);
+  }
+
+  .faculty-content-box .faculty-card-title {
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 50px);
+    margin-bottom: 10px;
+  }
+
+  .faculty-content-box .faculty-card-title:hover {
+    transform: translate3d(0px, 0px, 60px);
+  }
+
+  .faculty-content-box .faculty-card-content {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f2f2f2;
+    transition: all 0.5s ease-in-out;
+    transform: translate3d(0px, 0px, 30px);
+  }
+
+  .faculty-content-box .faculty-card-content:hover {
+    transform: translate3d(0px, 0px, 60px);
+  }
+
+  .faculty-date-box {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    height: 60px;
+    width: 60px;
+    background: white;
+    border: 1px solid rgb(4, 193, 250);
+    padding: 10px;
+    transform: translate3d(0px, 0px, 80px);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 17px 10px -10px;
+  }
+
+  .faculty-date-box span {
+    display: block;
+    text-align: center;
+  }
+
+  .faculty-date-box .faculty-month {
+    color: rgb(4, 193, 250);
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .faculty-date-box .faculty-date {
+    font-size: 20px;
+    font-weight: 900;
+    color: rgb(4, 193, 250);
+  }
+
+  /* ---------- 3D ROTATING STUDENTS CARDS ---------- */
+  .students-wrapper {
+    width: 100%;
+    height: 900px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    margin: 40px 0 100px;
+  }
+
+  .students-inner {
+    --w: 220px;
+    --h: 280px;
+    --translateZ: calc((var(--w) + var(--h)) + 100px);
+    --rotateX: -15deg;
+    --perspective: 1000px;
+    position: absolute;
+    width: var(--w);
+    height: var(--h);
+    top: 15%;
+    left: calc(50% - (var(--w) / 2) - 2.5px);
+    z-index: 2;
+    transform-style: preserve-3d;
+    transform: perspective(var(--perspective));
+    animation: students-rotating 80s linear infinite;
+  }
+
+  @keyframes students-rotating {
+    from {
+      transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0);
+    }
+    to {
+      transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn);
+    }
+  }
+
+  .student-card {
+    position: absolute;
+    border-radius: 12px;
+    overflow: hidden;
+    inset: 0;
+    transform: rotateY(calc((360deg / 16) * var(--index))) translateZ(var(--translateZ));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  }
+
+  .student-card:hover {
+    transform: rotateY(calc((360deg / 16) * var(--index))) translateZ(calc(var(--translateZ) + 40px)) scale(1.1);
+  }
+
+
+  .student-card-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(var(--color-card), 0.3), rgba(var(--color-card), 0.8));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .student-card-name {
+    color: black;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-shadow: none;
+    text-align: center;
+  }
+
+  .student-card-achievement {
+    color: black;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 15px;
+  }
+
+  .student-card-details {
+    color: black;
+    font-size: 11px;
+    text-align: center;
+    margin-top: 8px;
+    opacity: 1;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  .student-year {
+    color: black;
+    font-size: 10px;
+    text-align: center;
+    margin-top: 8px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.5);
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+
+
+  /* ---------- GRID ---------- */
+  .grid {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+  }
+
+  /* ---------- BOOK CARD ---------- */
+  .book {
+    position: relative;
+    width: 280px;
+    height: 380px;
+    margin: auto;
+    background: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 1px 1px 12px #000;
+    transform-style: preserve-3d;
+    perspective: 2000px;
+  }
+
+  /* Inside page */
+  .content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .content h3 {
+    color: #1e3a8a;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .content p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .view-more-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background: #1e3a8a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .view-more-btn:hover {
+    background: #2d4fb3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4);
+  }
+
+  /* Cover */
+  .cover {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background: lightgray;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    transform-origin: left;
+    box-shadow: 1px 1px 12px #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .cover .cover-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 20px 10px 10px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    border-radius: 0 0 10px 10px;
+  }
+
+  .book:hover .cover {
+    transform: rotateY(-83deg);
+  }
+
+  footer {
+    margin-top: 40px;
+    padding: 15px;
+    text-align: center;
+    background: #111827;
+    color: white;
+    font-size: 14px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- INTRO PAGE -->
+<div id="intro">
+  <!-- Intro Text Content -->
+  <div class="intro-content">
+    <h1 class="glow-text">Rajeev Institute of Technology</h1>
+    <p class="subtitle">CSE(AI&ML) Department Newsletter</p>
+    <p class="issue-info">
+      <span>Volume 2 | Issue 2</span>
+    </p>
+    <p class="issue-info">
+      <span>July – December 2025</span>
+    </p>
+  </div>
+
+  <!-- SVG Loader -->
+  <div class="intro-loader">
+    <svg
+      aria-label="loader being flipped clockwise and circled by three white curves fading in and out"
+      role="img"
+      height="56px"
+      width="56px"
+      viewBox="0 0 56 56"
+      class="loader"
+    >
+      <clipPath id="sand-mound-top">
+        <path
+          d="M 14.613 13.087 C 15.814 12.059 19.3 8.039 20.3 6.539 C 21.5 4.789 21.5 2.039 21.5 2.039 L 3 2.039 C 3 2.039 3 4.789 4.2 6.539 C 5.2 8.039 8.686 12.059 9.887 13.087 C 11 14.039 12.25 14.039 12.25 14.039 C 12.25 14.039 13.5 14.039 14.613 13.087 Z"
+          class="loader__sand-mound-top"
+        ></path>
+      </clipPath>
+      <clipPath id="sand-mound-bottom">
+        <path
+          d="M 14.613 20.452 C 15.814 21.48 19.3 25.5 20.3 27 C 21.5 28.75 21.5 31.5 21.5 31.5 L 3 31.5 C 3 31.5 3 28.75 4.2 27 C 5.2 25.5 8.686 21.48 9.887 20.452 C 11 19.5 12.25 19.5 12.25 19.5 C 12.25 19.5 13.5 19.5 14.613 20.452 Z"
+          class="loader__sand-mound-bottom"
+        ></path>
+      </clipPath>
+      <g transform="translate(2,2)">
+        <g
+          transform="rotate(-90,26,26)"
+          stroke-linecap="round"
+          stroke-dashoffset="153.94"
+          stroke-dasharray="153.94 153.94"
+          stroke="hsl(0,0%,100%)"
+          fill="none"
+        >
+          <circle
+            transform="rotate(0,26,26)"
+            r="24.5"
+            cy="26"
+            cx="26"
+            stroke-width="2.5"
+            class="loader__motion-thick"
+          ></circle>
+          <circle
+            transform="rotate(90,26,26)"
+            r="24.5"
+            cy="26"
+            cx="26"
+            stroke-width="1.75"
+            class="loader__motion-medium"
+          ></circle>
+          <circle
+            transform="rotate(180,26,26)"
+            r="24.5"
+            cy="26"
+            cx="26"
+            stroke-width="1"
+            class="loader__motion-thin"
+          ></circle>
+        </g>
+        <g transform="translate(13.75,9.25)" class="loader__model">
+          <path
+            d="M 1.5 2 L 23 2 C 23 2 22.5 8.5 19 12 C 16 15.5 13.5 13.5 13.5 16.75 C 13.5 20 16 18 19 21.5 C 22.5 25 23 31.5 23 31.5 L 1.5 31.5 C 1.5 31.5 2 25 5.5 21.5 C 8.5 18 11 20 11 16.75 C 11 13.5 8.5 15.5 5.5 12 C 2 8.5 1.5 2 1.5 2 Z"
+            fill="hsl(var(--hue),90%,85%)"
+          ></path>
+
+          <g stroke-linecap="round" stroke="hsl(35,90%,90%)">
+            <line
+              y2="20.75"
+              x2="12"
+              y1="15.75"
+              x1="12"
+              stroke-dasharray="0.25 33.75"
+              stroke-width="1"
+              class="loader__sand-grain-left"
+            ></line>
+            <line
+              y2="21.75"
+              x2="12.5"
+              y1="16.75"
+              x1="12.5"
+              stroke-dasharray="0.25 33.75"
+              stroke-width="1"
+              class="loader__sand-grain-right"
+            ></line>
+            <line
+              y2="31.5"
+              x2="12.25"
+              y1="18"
+              x1="12.25"
+              stroke-dasharray="0.5 107.5"
+              stroke-width="1"
+              class="loader__sand-drop"
+            ></line>
+            <line
+              y2="31.5"
+              x2="12.25"
+              y1="14.75"
+              x1="12.25"
+              stroke-dasharray="54 54"
+              stroke-width="1.5"
+              class="loader__sand-fill"
+            ></line>
+            <line
+              y2="31.5"
+              x2="12"
+              y1="16"
+              x1="12"
+              stroke-dasharray="1 107"
+              stroke-width="1"
+              stroke="hsl(35,90%,83%)"
+              class="loader__sand-line-left"
+            ></line>
+            <line
+              y2="31.5"
+              x2="12.5"
+              y1="16"
+              x1="12.5"
+              stroke-dasharray="12 96"
+              stroke-width="1"
+              stroke="hsl(35,90%,83%)"
+              class="loader__sand-line-right"
+            ></line>
+
+            <g stroke-width="0" fill="hsl(35,90%,90%)">
+              <path
+                d="M 12.25 15 L 15.392 13.486 C 21.737 11.168 22.5 2 22.5 2 L 2 2.013 C 2 2.013 2.753 11.046 9.009 13.438 L 12.25 15 Z"
+                clip-path="url(#sand-mound-top)"
+              ></path>
+              <path
+                d="M 12.25 18.5 L 15.392 20.014 C 21.737 22.332 22.5 31.5 22.5 31.5 L 2 31.487 C 2 31.487 2.753 22.454 9.009 20.062 Z"
+                clip-path="url(#sand-mound-bottom)"
+              ></path>
+            </g>
+          </g>
+
+          <g stroke-width="2" stroke-linecap="round" opacity="0.7" fill="none">
+            <path
+              d="M 19.437 3.421 C 19.437 3.421 19.671 6.454 17.914 8.846 C 16.157 11.238 14.5 11.5 14.5 11.5"
+              stroke="hsl(0,0%,100%)"
+              class="loader__glare-top"
+            ></path>
+            <path
+              transform="rotate(180,12.25,16.75)"
+              d="M 19.437 3.421 C 19.437 3.421 19.671 6.454 17.914 8.846 C 16.157 11.238 14.5 11.5 14.5 11.5"
+              stroke="hsla(0,0%,100%,0)"
+              class="loader__glare-bottom"
+            ></path>
+          </g>
+
+          <rect height="2" width="24.5" fill="hsl(var(--hue),90%,50%)"></rect>
+          <rect
+            height="1"
+            width="19.5"
+            y="0.5"
+            x="2.5"
+            ry="0.5"
+            rx="0.5"
+            fill="hsl(var(--hue),90%,57.5%)"
+          ></rect>
+          <rect
+            height="2"
+            width="24.5"
+            y="31.5"
+            fill="hsl(var(--hue),90%,50%)"
+          ></rect>
+          <rect
+            height="1"
+            width="19.5"
+            y="32"
+            x="2.5"
+            ry="0.5"
+            rx="0.5"
+            fill="hsl(var(--hue),90%,57.5%)"
+          ></rect>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
+  
+  <!-- Intro footer -->
+  <div class="intro-footer">
+    Dr Sharath MN Assoc.Professor & Head&nbsp; | &nbsp; Charan BS 6th Sem
+  </div>
+  </div>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="main">
+
+<header>
+  <img src="images/logo.png" alt="College Logo" class="logo">
+  <div class="title-container">
+    <h1>CSE(AI&ML) Department Newsletter </h1>
+    <h2 id="section-subtitle">Event Highlights</h2>
+  </div>
+</header>
+
+<div class="nav-container">
+  <button class="nav-btn active" onclick="showSection('events', this)">Events</button>
+  <button class="nav-btn" onclick="showSection('students', this)">Students Achievements</button>
+  <button class="nav-btn" onclick="showSection('faculty', this)">Faculty Achievements</button>
+</div>
+
+<!-- EVENTS SECTION -->
+<div id="events" class="content-section active">
+<div class="grid">
+
+  <!-- 1 -->
+  <div class="book">
+    <div class="content">
+      <h3>Ayudha Pooja</h3>
+      <p>A traditional celebration honoring books, tools, and instruments.</p>
+      <button onclick="openGallery('Ayudha Pooja')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/ayudhap.jpeg">
+      <span class="cover-label">Ayudha Pooja</span>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="book">
+    <div class="content">
+      <h3>Campus to Corporate</h3>
+      <p>Guidance session preparing students for corporate life.</p>
+      <button onclick="openGallery('Campus to Corporate')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/ctc.jpeg">
+      <span class="cover-label">Campus to Corporate</span>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="book">
+    <div class="content">
+      <h3>Food Walk</h3>
+      <p>An exploration of local cuisine and food culture.</p>
+      <button onclick="openGallery('Food Walk')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/foodwalk.jpg">
+      <span class="cover-label">Food Walk</span>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="book">
+    <div class="content">
+      <h3>Heritage Walk</h3>
+      <p>Educational walk highlighting cultural heritage.</p>
+      <button onclick="openGallery('Heritage Walk')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/heritage_walk.png">
+      <span class="cover-label">Heritage Walk</span>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="book">
+    <div class="content">
+      <h3>KMF Visit</h3>
+      <p>Industrial exposure to dairy processing operations.</p>
+      <button onclick="openGallery('KMF Visit')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/KMF.png">
+      <span class="cover-label">KMF Visit</span>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="book">
+    <div class="content">
+      <h3>Plantation Activity</h3>
+      <p>Environmental initiative promoting green practices.</p>
+      <button onclick="openGallery('Plantation Activity')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/plantation.jpg">
+      <span class="cover-label">Plantation Activity</span>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="book">
+    <div class="content">
+      <h3>Power BI Workshop</h3>
+      <p>Hands-on training on data analytics and visualization.</p>
+      <button onclick="openGallery('Power BI Workshop')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/powebi.png">
+      <span class="cover-label">Power BI Workshop</span>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="book">
+    <div class="content">
+      <h3>PTM</h3>
+      <p>Parent–Teacher interaction for academic progress.</p>
+      <button onclick="openGallery('PTM')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/PTM.jpg">
+      <span class="cover-label">PTM</span>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="book">
+    <div class="content">
+      <h3>Senior–Junior Confluence</h3>
+      <p>Mentorship and bonding between students.</p>
+      <button onclick="openGallery('Senior–Junior Confluence')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/senior_junior.png">
+      <span class="cover-label">Senior–Junior Confluence</span>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="book">
+    <div class="content">
+      <h3>TechFestia</h3>
+      <p>Technical fest showcasing innovation and creativity.</p>
+      <button onclick="openGallery('TechFestia')" class="view-more-btn">View More Images</button>
+    </div>
+    <div class="cover">
+      <img src="images/events/TechFiesta Poster.jpg">
+      <span class="cover-label">TechFestia</span>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- STUDENTS ACHIEVEMENTS SECTION -->
+<div id="students" class="content-section">
+  <div class="students-wrapper">
+    <div class="students-inner" style="--quantity: 16;">
+      
+      <!-- Student 1 -->
+      <div class="student-card" style="--index: 0; --color-card: 142, 249, 252;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Mr Madan B</div>
+          <div class="student-card-achievement">Problem Solving Through Programming in C</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2024</div>
+        </div>
+      </div>
+
+      <!-- Student 2 -->
+      <div class="student-card" style="--index: 1; --color-card: 142, 252, 204;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Ameena Kouser</div>
+          <div class="student-card-achievement">Programming in Java</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2024</div>
+        </div>
+      </div>
+
+      <!-- Student 3 -->
+      <div class="student-card" style="--index: 2; --color-card: 142, 252, 157;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Inchana K V</div>
+          <div class="student-card-achievement">Programming in Java</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2024</div>
+        </div>
+      </div>
+
+      <!-- Student 4 -->
+      <div class="student-card" style="--index: 3; --color-card: 215, 252, 142;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Mr Vaishnav V K</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 5 -->
+      <div class="student-card" style="--index: 4; --color-card: 252, 252, 142;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Sonika M B</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 6 -->
+      <div class="student-card" style="--index: 5; --color-card: 252, 208, 142;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Nameatha Rajesh</div>
+          <div class="student-card-achievement">Ethical Hacking</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 7 -->
+      <div class="student-card" style="--index: 6; --color-card: 252, 142, 142;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Nameatha Rajesh</div>
+          <div class="student-card-achievement">Cyber Security and Privacy</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 8 -->
+      <div class="student-card" style="--index: 7; --color-card: 252, 142, 239;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Sinchana K K</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 9 -->
+      <div class="student-card" style="--index: 8; --color-card: 204, 142, 252;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Niranjan H N</div>
+          <div class="student-card-achievement">Data Structures and Algorithms Design</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 10 -->
+      <div class="student-card" style="--index: 9; --color-card: 142, 202, 252;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Mr Anish M S</div>
+          <div class="student-card-achievement">Introduction to Machin Learning</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 11 -->
+      <div class="student-card" style="--index: 10; --color-card: 142, 249, 200;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Mr Anish M S</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 12 -->
+      <div class="student-card" style="--index: 11; --color-card: 249, 252, 142;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Hamsini S</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 13 -->
+      <div class="student-card" style="--index: 12; --color-card: 252, 180, 142;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Greeshma Rai P R</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 14 -->
+      <div class="student-card" style="--index: 13; --color-card: 142, 200, 252;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Mr Harsha M O</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 15 -->
+      <div class="student-card" style="--index: 14; --color-card: 200, 142, 252;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Ms Bharath B T</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+      <!-- Student 16 -->
+      <div class="student-card" style="--index: 15; --color-card: 252, 142, 180;">
+        <div class="student-card-bg">
+          <div class="student-card-name">Mr Bharath B T</div>
+          <div class="student-card-achievement">Introduction to Internet of Things</div>
+          <div class="student-card-details">12 Week Course</div>
+          <div class="student-year">Jul-Oct 2025</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- FACULTY ACHIEVEMENTS SECTION -->
+<div id="faculty" class="content-section">
+  <div class="faculty-grid">
+    
+    <!-- Faculty 1 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Mr.Lohith DK</span>
+          <p class="faculty-card-content">
+            Cloud Computing
+            12 Week Course
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Jul-Oct</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty 2 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Ms Chithra HN</span>
+          <p class="faculty-card-content">
+            Introduction to Machin Learning
+            12 Week Course
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Jul-Oct</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty 3 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Mr.Lohith DK</span>
+          <p class="faculty-card-content">
+            Ethical Hacking
+            12 Week Course
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Jul-Oct</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty 4 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Dr. Sharath MN</span>
+          <p class="faculty-card-content">
+            Accreditation and Outcome Based Learning
+            8 Week Course
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Aug-Oct</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty 5 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Mr. Lohith DK</span>
+          <p class="faculty-card-content">
+            Comouter Graphics
+            8 Week Course
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Jul-Sep</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty 6 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Dr. Sharath MN</span>
+          <p class="faculty-card-content">
+            Introduction to Programing in C
+            8 Week Course
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Jul-Sep</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faculty 7 -->
+    <div class="faculty-parent">
+      <div class="faculty-card">
+        <div class="faculty-content-box">
+          <span class="faculty-card-title">Dr. Sharath MN</span>
+          <p class="faculty-card-content">
+            OBE and Accreditation
+          </p>
+        </div>
+        <div class="faculty-date-box">
+          <span class="faculty-month">Jul-Oct</span>
+          <span class="faculty-date">2025</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  © Editorial Board<br>
+  <span style="font-size: 12px; margin-top: 8px; display: block;">Dr Sharath MN Assoc.Professor & Head&nbsp; | &nbsp; Charan BS 6th Sem</span>
+</footer>
+
+</div>
+
+<script>
+  // Gallery Modal HTML
+  const galleryModalHTML = `
+  <div id="gallery-modal" class="gallery-modal">
+    <div class="gallery-content">
+      <span class="gallery-close">&times;</span>
+      <h2 id="gallery-title" class="gallery-title">Event Gallery</h2>
+      <div id="gallery-images" class="gallery-images"></div>
+    </div>
+  </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', galleryModalHTML);
+  
+  // Gallery Modal Styles
+  const galleryStyles = document.createElement('style');
+  galleryStyles.textContent = `
+    .gallery-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .gallery-modal.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .gallery-content {
+      max-width: 1200px;
+      margin: 40px auto;
+      position: relative;
+      background: #1a1a2e;
+      border-radius: 20px;
+      padding: 30px;
+      animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gallery-close {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    .gallery-close:hover {
+      color: #ff6b6b;
+      transform: rotate(90deg);
+    }
+    .gallery-title {
+      color: white;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .gallery-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .gallery-image {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .gallery-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .gallery-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .gallery-image:hover img {
+      transform: scale(1.1);
+    }
+    
+    /* Full Screen Image Modal */
+    .fullscreen-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .fullscreen-modal.active {
+      display: flex;
+    }
+    .fullscreen-modal img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: zoomIn 0.3s ease;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .fullscreen-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 50px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 2001;
+    }
+    .fullscreen-close:hover {
+      color: #ff6b6b;
+      transform: rotate(90deg);
+    }
+  `;
+  document.head.appendChild(galleryStyles);
+  
+  // Fullscreen Modal HTML
+  const fullscreenModalHTML = `
+  <div id="fullscreen-modal" class="fullscreen-modal">
+    <span class="fullscreen-close">&times;</span>
+    <img id="fullscreen-image" src="" alt="Full Screen Image">
+  </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', fullscreenModalHTML);
+
+  // Event galleries - using actual images from folders
+  const eventGalleries = {
+    'Ayudha Pooja': [
+      'images/events/ayudha pooja/ayudha.jpg',
+      
+    ],
+
+    'Campus to Corporate': [
+      'images/events/campus to corporate /Photo-2.jpg',
+      'images/events/campus to corporate /WhatsApp Image 2025-09-29 at 16.13.57_f49157c0.jpg',
+      'images/events/campus to corporate /WhatsApp Image 2025-09-29 at 16.14.25_d0d38807.jpg',
+      'images/events/campus to corporate /WhatsApp Image 2025-09-29 at 16.14.27_d7ed0a4e.jpg',
+      'images/events/campus to corporate /WhatsApp Image 2025-09-29 at 16.14.35_13824e5e.jpg'
+    ],
+    'Food Walk': [
+      'images/events/food walk/Food Walk.jpg',
+      'images/events/food walk/20251010_23024PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23104PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23117PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23220PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23414PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23530PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23602PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23639PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23650PMByGPSMapCamera.jpg',
+      'images/events/food walk/20251010_23744PMByGPSMapCamera.jpg'
+    ],
+    'Heritage Walk': [
+      'images/events/heritage walk/WhatsApp Image 2025-11-16 at 10.59.50_ad30483a.jpg',
+      'images/events/heritage walk/WhatsApp Image 2025-11-16 at 11.00.33_74616076.jpg',
+      'images/events/heritage walk/WhatsApp Image 2025-11-16 at 11.01.06_34f99fad.jpg',
+      'images/events/heritage walk/WhatsApp Image 2025-11-16 at 11.28.07_897d0b3e.jpg',
+      'images/events/heritage walk/WhatsApp Image 2025-11-16 at 11.29.15_40a72aa9.jpg'
+    ],
+    'KMF Visit': [
+      'images/events/KMF/Picture-11.jpg'
+    ],
+    'Plantation Activity': [
+      'images/events/plantation activity/Plantation.jpg',
+      'images/events/plantation activity/1.jpg',
+      'images/events/plantation activity/2.jpg',
+      'images/events/plantation activity/4.jpg',
+      'images/events/plantation activity/5.jpg',
+    ],
+    'Power BI Workshop': [
+      'images/events/power bi/Picture1.png'
+    ],
+    'PTM': [
+      'images/events/PTM/WhatsApp Image 2025-10-31 at 13.21.24_d9d20cc7.jpg',
+      'images/events/PTM/WhatsApp Image 2025-10-31 at 13.21.25_13532783.jpg'
+    ],
+    'Senior–Junior Confluence': [
+      'images/events/Senoir junior/WhatsApp Image 2025-11-28 at 13.06.18_ed9e59bd.jpg',
+      'images/events/Senoir junior/WhatsApp Image 2025-11-28 at 13.06.16_0aeb0546.jpg'
+    ],
+    'TechFestia': [
+      'images/events/TechFestia/GameForge-Photo-1.JPG',
+      'images/events/TechFestia/Poster Designing-Photo-2.JPG',
+      'images/events/TechFestia/Syntaxia-Photo-1.jpg'
+    ]
+  };
+
+  // Gallery modal functionality
+  const galleryModal = document.getElementById('gallery-modal');
+  const galleryClose = document.querySelector('.gallery-close');
+  const galleryTitle = document.getElementById('gallery-title');
+  const galleryImages = document.getElementById('gallery-images');
+  
+  // Fullscreen modal functionality
+  const fullscreenModal = document.getElementById('fullscreen-modal');
+  const fullscreenImage = document.getElementById('fullscreen-image');
+  const fullscreenClose = document.querySelector('.fullscreen-close');
+
+  // Open gallery modal
+  function openGallery(eventName) {
+    galleryTitle.textContent = eventName + ' Gallery';
+    galleryImages.innerHTML = '';
+    
+    const images = eventGalleries[eventName] || [];
+    images.forEach((imgSrc, index) => {
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'gallery-image';
+      imageDiv.innerHTML = '<img src="' + imgSrc + '" alt="' + eventName + ' ' + (index + 1) + '">';
+      imageDiv.onclick = function() {
+        openFullscreen(imgSrc);
+      };
+      galleryImages.appendChild(imageDiv);
+    });
+    
+    galleryModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Open fullscreen image
+  function openFullscreen(imgSrc) {
+    fullscreenImage.src = imgSrc;
+    fullscreenModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Close fullscreen modal
+  function closeFullscreen() {
+    fullscreenModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  // Close gallery modal
+  function closeGallery() {
+    galleryModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  fullscreenClose.addEventListener('click', closeFullscreen);
+  fullscreenModal.addEventListener('click', function(e) {
+    if (e.target === fullscreenModal) closeFullscreen();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeFullscreen();
+    }
+  });
+
+  galleryClose.addEventListener('click', closeGallery);
+  galleryModal.addEventListener('click', function(e) {
+    if (e.target === galleryModal) closeGallery();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeGallery();
+  });
+
+  // Intro screen delay with exit animation
+  setTimeout(() => {
+    const intro = document.getElementById("intro");
+    intro.classList.add("exit");
+    
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }, 1000);
+  }, 8000);
+
+  // Section navigation
+  function showSection(sectionId, btn) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    // Show selected section
+    document.getElementById(sectionId).classList.add('active');
+    
+    // Update button styles
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    btn.classList.add('active');
+    
+    // Update subtitle
+    const subtitles = {
+      'events': 'Event Highlights',
+      'students': 'Students Achievements',
+      'faculty': 'Faculty Achievements'
+    };
+    document.getElementById('section-subtitle').textContent = subtitles[sectionId];
+  }
+</script>
+
+</body>
+</html>
+
+
+
